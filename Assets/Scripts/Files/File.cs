@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace Files
 {
+    [RequireComponent(typeof(Button))]
     public sealed class File : MonoBehaviour
     {
         [SerializeField] private Text _textName;
@@ -13,8 +14,16 @@ namespace Files
         private int _levelCompress;
         [SerializeField] private int _compressInProcent;
 
+        private Button _button;
+
+        private void Awake() => _button = gameObject.GetComponent<Button>();
+
+        private void OnDestroy() => _button.onClick.RemoveAllListeners();
+
         public void Init(string name, int size, int levelCompress)
         {
+            _button.onClick.AddListener(Click);
+
             _name = name;
             _size = size;
             _levelCompress = levelCompress;
@@ -30,6 +39,11 @@ namespace Files
             {
                 _imagesCompress[i].color = Color.white;
             }
+        }
+
+        private void Click()
+        {
+            print(_name);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Files
     {
         [SerializeField] private File[] _files;
         [SerializeField] private Transform _parent;
+        [SerializeField] private FileSettings _fileSettings;
 
         private void OnEnable()
         {
@@ -16,7 +17,7 @@ namespace Files
                 var file = _files[i];
                 file.gameObject.SetActive(true);
                 file.transform.parent = _parent;
-                FileCreator fileCreator = new(i);
+                FileCreator fileCreator = new(i, _fileSettings.Size);
                 file.Init(fileCreator.GetName(), fileCreator.GetSize(), fileCreator.GetCompressLevelInValue());
             }
             for (int i = randomCount; i < _files.Length; i++)
