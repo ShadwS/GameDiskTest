@@ -12,9 +12,10 @@ namespace Files
         [SerializeField] private Image[] _imagesCompress;
 
         private string _name;
-        [SerializeField] private int _size;
         private int _levelCompress;
+        [SerializeField] private int _size;
         [SerializeField] private int _compressInProcent;
+        [SerializeField] private bool _isMaximalCompress;
 
         private Button _button;
         private Image _image;
@@ -38,11 +39,14 @@ namespace Files
 
             _disableColor = file.DisableColor;
             _enableColor = file.EnableColor;
-            _image.color = _disableColor;
-            _enabled = false;
             _name = file.Name;
             _levelCompress = file.CompressLevel;
+            _isMaximalCompress = file.IsMaximalCompress;
+
+            _image.color = _disableColor;
+            _enabled = false;
             _compressInProcent = _levelCompress * 25;
+
             var compressValueInProcent = 100 - _compressInProcent;
             var size = file.Size;
             _size = _compressInProcent == 0 ? size : size * compressValueInProcent / 100;

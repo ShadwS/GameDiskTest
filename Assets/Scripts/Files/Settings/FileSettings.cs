@@ -11,7 +11,7 @@ namespace Files
             {
                 if (_randomSize)
                 {
-                    return Random.Range(_minSize, _maxSize + 1);
+                    return Random.Range(_minimalSize, _maximalSize + 1);
                 }
                 else
                 {
@@ -21,34 +21,48 @@ namespace Files
         }
         public Color EnableColor => _enableColor;
         public Color DisableColor => _disableColor;
+        public int MaximalCompress => _maximalCompress;
+        public int MinimalCompress => _minimalCompress;
 
+        [Header("Size")]
         [SerializeField] private bool _randomSize;
-        [SerializeField] private int _minSize;
-        [SerializeField] private int _maxSize;
+        [SerializeField] private int _minimalSize;
+        [SerializeField] private int _maximalSize;
         [SerializeField] private int _staticSize;
+        [Space]
+        [Header("Color")]
         [SerializeField] private Color _enableColor;
         [SerializeField] private Color _disableColor;
 
+        private readonly int _minimalCompress = 1;
+        private readonly int _maximalCompress = 4;
+
         public void CorrectValue()
+        {
+            CorrectSize();
+            CorrectColor();
+        }
+
+        private void CorrectSize()
         {
             if (_randomSize)
             {
-                if (_maxSize == 0 && _minSize == 0)
+                if (_maximalSize == 0 && _minimalSize == 0)
                 {
                     Debug.LogError("Minimal size not set. Minimal size = 50 \n" +
                         "Maximal size not set. Maximal size = 1024");
-                    _minSize = 50;
-                    _maxSize = 1024;
+                    _minimalSize = 50;
+                    _maximalSize = 1024;
                 }
-                else if (_minSize == 0)
+                else if (_minimalSize == 0)
                 {
                     Debug.LogError("Minimal size not set. Minimal size = 50");
-                    _minSize = 50;
+                    _minimalSize = 50;
                 }
-                else if (_maxSize == 0)
+                else if (_maximalSize == 0)
                 {
                     Debug.LogError("Maximal size not set. Maximal size = 1024");
-                    _maxSize = 1024;
+                    _maximalSize = 1024;
                 }
             }
             else
@@ -59,7 +73,10 @@ namespace Files
                     _staticSize = 1024;
                 }
             }
+        }
 
+        private void CorrectColor()
+        {
             if (_enableColor.a == 0 && _disableColor.a == 0)
             {
                 Debug.LogError("Enable color not set. Enable color = Green \n" +

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Random 100-1024
   m_EditorClassIdentifier: 
   _randomSize: 1
-  _minSize: 100
-  _maxSize: 1024
+  _minimalSize: 100
+  _maximalSize: 1024
   _staticSize: 0
   _enableColor: {r: 0.2264136, g: 0.7529412, b: 0.1019608, a: 1}
   _disableColor: {r: 0.7529412, g: 0.64705884, b: 0.101960786, a: 1}
