@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1151129136837751268}
   - component: {fileID: 5066781443003277382}
   - component: {fileID: 7130863893990500485}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image compress 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,8 +86,8 @@ GameObject:
   - component: {fileID: 7536168359448532968}
   - component: {fileID: 5923802744535946580}
   - component: {fileID: 2708497661206515592}
-  m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Layer: 5
+  m_Name: Text (name)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 7938863497242859966}
   - component: {fileID: 8959466351037079829}
   - component: {fileID: 4905999180593240407}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image compress 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,8 @@ GameObject:
   - component: {fileID: 8812693101612309130}
   - component: {fileID: 4598317522671724383}
   - component: {fileID: 1932457212757858562}
-  m_Layer: 0
+  - component: {fileID: -3717253306739338047}
+  m_Layer: 5
   m_Name: Button (File)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,6 +352,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-3717253306739338047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471142454794919353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0594ee74eed2164da909075b952b601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textName: {fileID: 2708497661206515592}
+  _imagesCompress:
+  - {fileID: 7130863893990500485}
+  - {fileID: 6688512116848852030}
+  - {fileID: 4905999180593240407}
 --- !u!1 &3846709465055450157
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +380,7 @@ GameObject:
   - component: {fileID: 2550825869013126647}
   - component: {fileID: 5273078109974297518}
   - component: {fileID: 8125900776814861422}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel compress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +458,7 @@ GameObject:
   - component: {fileID: 1188884775948006573}
   - component: {fileID: 7500665319608875138}
   - component: {fileID: 6688512116848852030}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image compress 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
