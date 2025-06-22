@@ -5,7 +5,7 @@ namespace Files
     [CreateAssetMenu(menuName = "File/Settings")]
     public sealed class FileSettings : ScriptableObject
     {
-        public int Size
+        public int StartSize
         {
             get
             {

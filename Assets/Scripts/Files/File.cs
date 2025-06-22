@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Services.Files;
 using UI;
+using Services.Files;
 using Services;
 using Services.EvnetBusSignals;
 
@@ -13,6 +13,7 @@ namespace Files
         public bool IsMaximalCompress => _isMaximalCompress;
         public bool Enabled => _enabled;
         public int Size => _size;
+        public int StartSize => _startSize;
 
         [SerializeField] private Text _textName;
         [SerializeField] private Image[] _imagesCompress;
@@ -20,7 +21,7 @@ namespace Files
         private string _name;
         private int _levelCompress;
         private int _size;
-        [SerializeField] private int _compressInProcent;
+        private int _startSize;
         private bool _isMaximalCompress;
 
         private ServiceLocator _serviceLocator;
@@ -43,18 +44,17 @@ namespace Files
 
             _disableColor = file.DisableColor;
             _enableColor = file.EnableColor;
+            _image.color = _disableColor;
+            _enabled = false;
+
             _name = file.Name;
+            _textName.text = _name;
+
             _levelCompress = file.CompressLevel;
             _isMaximalCompress = file.IsMaximalCompress;
 
-            _image.color = _disableColor;
-            _enabled = false;
-            _compressInProcent = _levelCompress * 25;
-
-            var compressValueInProcent = 100 - _compressInProcent;
-            var size = file.Size;
-            _size = _compressInProcent == 0 ? size : size * compressValueInProcent / 100;
-            _textName.text = _name;
+            _startSize = file.StartSize;
+            _size = file.Size;
 
             for (int i = 0; i < _levelCompress; i++)
             {
@@ -69,14 +69,8 @@ namespace Files
         protected override void Click()
         {
             _enabled = !_enabled;
-            if (_enabled)
-            {
-                _image.color = _enableColor;
-            }
-            else
-            {
-                _image.color= _disableColor;
-            }
+
+            _image.color = _enabled ? _enableColor : _disableColor;
 
             _serviceLocator.EventBus.Invoke<FileClick>(new(this));
         }
