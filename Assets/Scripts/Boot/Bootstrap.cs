@@ -1,4 +1,5 @@
 using Files;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +11,14 @@ namespace Boot
         [SerializeField] private GameObject _canvasGame;
         [SerializeField] private FilesFactory _filesFactory;
         [SerializeField] private Button[] _buttons;
+        [SerializeField] private ServiceLocator _serviceLocator;
 
         private void Awake()
         {
             _canvasDisk.SetActive(false);
             _canvasGame.SetActive(false);
             _filesFactory.gameObject.SetActive(false);
+            _serviceLocator.gameObject.SetActive(false);
 
             foreach (var button in _buttons)
             {
@@ -27,6 +30,7 @@ namespace Boot
         {
             _canvasDisk.SetActive(true);
             _filesFactory.gameObject.SetActive(true);
+            _serviceLocator.gameObject.SetActive(true);
         }
     }
 }
