@@ -16,3 +16,5 @@ MonoBehaviour:
   _minSize: 0
   _maxSize: 0
   _staticSize: 0
+  _enableColor: {r: 0, g: 0, b: 0, a: 0}
+  _disableColor: {r: 0, g: 0, b: 0, a: 0}
