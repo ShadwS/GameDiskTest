@@ -1,5 +1,6 @@
 using UnityEngine;
 using Services.EvnetBusSignals;
+using Disk;
 
 namespace Services
 {
@@ -8,8 +9,10 @@ namespace Services
         public static ServiceLocator Instance;
 
         public EventBus EventBus => _eventBus;
+        public GameDisk Disk => _disk;
 
         private EventBus _eventBus;
+        private GameDisk _disk;
 
         private void Awake()
         {
@@ -24,5 +27,7 @@ namespace Services
 
             DontDestroyOnLoad(gameObject);
         }
+
+        public void InitDisk() => _disk = new();
     }
 }

@@ -20,7 +20,7 @@ namespace Files
 
         private string _name;
         private int _levelCompress;
-        private int _size;
+        [SerializeField] private int _size;
         private int _startSize;
         private bool _isMaximalCompress;
 

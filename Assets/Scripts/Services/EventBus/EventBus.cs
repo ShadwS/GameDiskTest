@@ -30,7 +30,7 @@ namespace Services.EvnetBusSignals
             }
             else
             {
-                Debug.Log($"События {key} нет в словаре");
+                Debug.LogError($"События {key} нет в словаре");
             }
         }
 
@@ -44,6 +44,10 @@ namespace Services.EvnetBusSignals
                     var callback = i as Action<T>;
                     callback?.Invoke(singal);
                 }
+            }
+            else
+            {
+                Debug.LogError($"События {key} нет в словаре");
             }
         }
     }

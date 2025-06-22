@@ -7,15 +7,28 @@ namespace UI
 {
     public sealed class ButtonCompress : MyButton
     {
+        private int ChangeSize
+        {
+            set
+            {
+                _currentSizeFiles += value;
+                _serviceLocator.EventBus.Invoke<ChangeSizeFiles>(new(_currentSizeFiles, _countFiles > 1));
+            }
+        }
+
         private ServiceLocator _serviceLocator;
         private List<File> _filesMaximalCompress;
         private List<File> _filesNotMaximalCompress;
+        private int _currentSizeFiles;
+        private int _countFiles;
 
         private void Start()
         {
             _serviceLocator = ServiceLocator.Instance;
             _filesMaximalCompress = new();
             _filesNotMaximalCompress = new();
+            _currentSizeFiles = 0;
+            _countFiles = 0;
             _serviceLocator.EventBus.Subscribe<FileClick>(FileClick);
         }
 
@@ -55,6 +68,9 @@ namespace UI
                     _button.interactable = true;
                 }
             }
+
+            _countFiles++;
+            ChangeSize = file.Size;
         }
 
         private void RemoveFile(File file)
@@ -71,6 +87,9 @@ namespace UI
                     _button.interactable = false;
                 }
             }
+
+            _countFiles--;
+            ChangeSize = -file.Size;
         }
     }
 }
