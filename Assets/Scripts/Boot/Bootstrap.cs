@@ -11,17 +11,22 @@ namespace Boot
         [SerializeField] private FilesFactory _filesFactory;
         [SerializeField] private Button[] _buttons;
 
-        private void OnEnable()
+        private void Awake()
         {
-            _canvasDisk.SetActive(true);
+            _canvasDisk.SetActive(false);
             _canvasGame.SetActive(false);
-
-            _filesFactory.gameObject.SetActive(true);
+            _filesFactory.gameObject.SetActive(false);
 
             foreach (var button in _buttons)
             {
                 button.interactable = false;
             }
+        }
+
+        private void Start()
+        {
+            _canvasDisk.SetActive(true);
+            _filesFactory.gameObject.SetActive(true);
         }
     }
 }

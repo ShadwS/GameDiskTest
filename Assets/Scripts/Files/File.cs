@@ -1,9 +1,11 @@
+using Services.Files;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Files
 {
     [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Image))]
     public sealed class File : MonoBehaviour
     {
         [SerializeField] private Text _textName;
@@ -15,21 +17,35 @@ namespace Files
         [SerializeField] private int _compressInProcent;
 
         private Button _button;
+        private Image _image;
 
-        private void Awake() => _button = gameObject.GetComponent<Button>();
+        private Color _disableColor;
+        private Color _enableColor;
+
+        private bool _enabled;
+
+        private void Awake()
+        {
+            _button = gameObject.GetComponent<Button>();
+            _image = gameObject.GetComponent<Image>();
+        }
 
         private void OnDestroy() => _button.onClick.RemoveAllListeners();
 
-        public void Init(string name, int size, int levelCompress)
+        public void Init(FileCreator file)
         {
             _button.onClick.AddListener(Click);
 
-            _name = name;
-            _levelCompress = levelCompress;
+            _disableColor = file.DisableColor;
+            _enableColor = file.EnableColor;
+            _image.color = _disableColor;
+            _enabled = false;
+            _name = file.Name;
+            _levelCompress = file.CompressLevel;
             _compressInProcent = _levelCompress * 25;
             var compressValueInProcent = 100 - _compressInProcent;
+            var size = file.Size;
             _size = _compressInProcent == 0 ? size : size * compressValueInProcent / 100;
-
             _textName.text = _name;
 
             for (int i = 0; i < _levelCompress; i++)
@@ -44,7 +60,15 @@ namespace Files
 
         private void Click()
         {
-            print(_name);
+            _enabled = !_enabled;
+            if (_enabled)
+            {
+                _image.color = _enableColor;
+            }
+            else
+            {
+                _image.color= _disableColor;
+            }
         }
     }
 }

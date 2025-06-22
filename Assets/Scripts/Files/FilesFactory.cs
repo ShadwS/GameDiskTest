@@ -1,4 +1,3 @@
-using Services.Files;
 using UnityEngine;
 
 namespace Files
@@ -18,8 +17,7 @@ namespace Files
                 var file = _files[i];
                 file.gameObject.SetActive(true);
                 file.transform.parent = _parent;
-                FileCreator fileCreator = new(i, _fileSettings.Size);
-                file.Init(fileCreator.GetName(), fileCreator.GetSize(), fileCreator.GetCompressLevelInValue());
+                file.Init(new(i, _fileSettings));
             }
             for (int i = randomCount; i < _files.Length; i++)
             {
