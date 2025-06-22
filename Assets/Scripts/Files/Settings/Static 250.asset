@@ -15,4 +15,4 @@ MonoBehaviour:
   _randomSize: 0
   _minSize: 0
   _maxSize: 0
-  _staticSize: 0
+  _staticSize: 250

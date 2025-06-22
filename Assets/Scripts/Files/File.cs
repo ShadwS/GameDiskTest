@@ -25,9 +25,10 @@ namespace Files
             _button.onClick.AddListener(Click);
 
             _name = name;
-            _size = size;
             _levelCompress = levelCompress;
             _compressInProcent = _levelCompress * 25;
+            var compressValueInProcent = 100 - _compressInProcent;
+            _size = _compressInProcent == 0 ? size : size * compressValueInProcent / 100;
 
             _textName.text = _name;
 

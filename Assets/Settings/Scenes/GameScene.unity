@@ -2437,6 +2437,7 @@ MonoBehaviour:
   - {fileID: 1438231170}
   - {fileID: 1373474885}
   _parent: {fileID: 3952363649217263307}
+  _fileSettings: {fileID: 11400000, guid: 57ce4b1eefdad1c42a4b13d3a1afe568, type: 2}
 --- !u!1001 &1370587876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4800,7 +4801,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 25
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40

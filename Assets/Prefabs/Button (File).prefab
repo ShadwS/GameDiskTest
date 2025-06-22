@@ -143,7 +143,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 25
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7535237, b: 0, a: 0.43137255}
+  m_Color: {r: 0.754717, g: 0.5937638, b: 0.10323961, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -369,6 +369,8 @@ MonoBehaviour:
   - {fileID: 7130863893990500485}
   - {fileID: 6688512116848852030}
   - {fileID: 4905999180593240407}
+  _size: 0
+  _compressInProcent: 0
 --- !u!1 &3846709465055450157
 GameObject:
   m_ObjectHideFlags: 0

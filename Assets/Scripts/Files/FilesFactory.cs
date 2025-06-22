@@ -12,6 +12,7 @@ namespace Files
         private void OnEnable()
         {
             int randomCount = Random.Range(10, _files.Length + 1);
+            _fileSettings.CorrectValue();
             for (int i = 0; i < randomCount; i++)
             {
                 var file = _files[i];
