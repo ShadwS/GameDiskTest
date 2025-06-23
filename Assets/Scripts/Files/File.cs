@@ -72,7 +72,7 @@ namespace Files
 
             _image.color = _enabled ? _enableColor : _disableColor;
 
-            _serviceLocator.EventBus.Invoke<FileClick>(new(this));
+            _serviceLocator.EventBus.Invoke<FileClickSignal>(new(this));
         }
     }
 }

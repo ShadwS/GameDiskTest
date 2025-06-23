@@ -7,12 +7,14 @@ namespace UI
 {
     public sealed class ButtonCompress : MyButton
     {
+        public int FilesCounter => _filesMaximalCompress.Count + _filesNotMaximalCompress.Count;
+
         private int ChangeSize
         {
             set
             {
                 _currentSizeFiles += value;
-                _serviceLocator.EventBus.Invoke<ChangeSizeFiles>(new(_currentSizeFiles, _countFiles > 1));
+                _serviceLocator.EventBus.Invoke<ChangeSizeFilesSignal>(new(_currentSizeFiles, _countFiles > 1));
             }
         }
 
@@ -29,20 +31,20 @@ namespace UI
             _filesNotMaximalCompress = new();
             _currentSizeFiles = 0;
             _countFiles = 0;
-            _serviceLocator.EventBus.Subscribe<FileClick>(FileClick);
+            _serviceLocator.EventBus.Subscribe<FileClickSignal>(FileClick);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _serviceLocator.EventBus.Unsubscribe<FileClick>(FileClick);
+            _serviceLocator.EventBus.Unsubscribe<FileClickSignal>(FileClick);
         }
 
         protected override void Click()
         {
         }
 
-        private void FileClick(FileClick file)
+        private void FileClick(FileClickSignal file)
         {
             if (file.File.Enabled)
             {

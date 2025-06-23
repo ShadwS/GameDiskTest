@@ -2,10 +2,10 @@ using Files;
 
 namespace Services.EvnetBusSignals
 {
-    sealed class FileClick
+    sealed class FileClickSignal
     {
         public File File;
 
-        public FileClick(File file) => File = file;
+        public FileClickSignal(File file) => File = file;
     }
 }
