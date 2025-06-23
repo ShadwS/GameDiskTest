@@ -20,17 +20,8 @@ namespace Disk
 
         public int[] StartValue() => new int[] { _currentSize, _filledInProcent };
 
-        public float ProcentFilledNewSize(int filesSize)
-        {
-            if (_currentSize - filesSize < 0)
-            {
-                return -1;
-            }
-            else
-            {
-                _currentSize -= filesSize;
-                return _currentSize * 100f / _maximalSize;
-            }
-        }
+        public bool CheckEmptyField(int size) => size <= _maximalSize;
+
+        public int GetNewSizeProcent(int size) => (int)(size * 100f / _maximalSize);
     }
 }

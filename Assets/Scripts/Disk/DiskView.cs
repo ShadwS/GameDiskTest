@@ -41,19 +41,23 @@ namespace Disk
 
         private void ChangeNewSize(ChangeNewSize newSize)
         {
-            var size = _serviceLocator.Disk.ProcentFilledNewSize(newSize.Size);
-            if (size == -1)
+            if (_serviceLocator.Disk.CheckEmptyField(newSize.Size))
             {
-                _imageNewSize.color = _textFilledInProcent.color = Color.red;
-                _imageNewSize.fillAmount = 1;
+                _imageNewSize.color = Color.green;
+                _textFilledInProcent.color = Color.white;
+
+                int procent = _serviceLocator.Disk.GetNewSizeProcent(newSize.Size);
+                _textFilledInProcent.text = $"заполнено на {procent}%";
+                _imageNewSize.fillAmount = procent / 100f;
             }
             else
             {
-                _imageNewSize.color = Color.green; 
-                _textFilledInProcent.color = Color.white;
-                _imageNewSize.fillAmount = size / 100f;
+                _imageNewSize.fillAmount = 1;
+                _imageNewSize.color = Color.red;
+
+                _textFilledInProcent.text = "заполнено на 100%";
+                _textFilledInProcent.color = Color.red;
             }
-            _textFilledInProcent.text = $"заполнено на {size}%";
         }
     }
 }
