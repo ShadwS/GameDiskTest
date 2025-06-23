@@ -20,7 +20,7 @@ namespace Disk
             _serviceLocator = ServiceLocator.Instance;
 
             _serviceLocator.EventBus.Subscribe<StartPrintSignal>(StartPrint);
-            _serviceLocator.EventBus.Subscribe<ChangeNewSizeSignal>(ChangeNewSize);
+            _serviceLocator.EventBus.Subscribe<ChangeFillAmountDisk>(ChangeFillAmount);
 
             _serviceLocator.InitDisk();
         }
@@ -28,7 +28,7 @@ namespace Disk
         private void OnDestroy()
         {
             _serviceLocator.EventBus.Unsubscribe<StartPrintSignal>(StartPrint);
-            _serviceLocator.EventBus.Unsubscribe<ChangeNewSizeSignal>(ChangeNewSize);
+            _serviceLocator.EventBus.Unsubscribe<ChangeFillAmountDisk>(ChangeFillAmount);
         }
 
         private void StartPrint(StartPrintSignal signal)
@@ -39,18 +39,15 @@ namespace Disk
             _imageNewSize.fillAmount = _imageCurrentSize.fillAmount;
         }
 
-        private void ChangeNewSize(ChangeNewSizeSignal signal)
+        private void ChangeFillAmount(ChangeFillAmountDisk signal)
         {
-            if (_serviceLocator.Disk.CheckEmptyField(signal.Size))
+            _imageNewSize.color = signal.ColorFillAmount;
+            _textFilledInProcent.color = signal.ColorText;
+            _textFilledInProcent.text = $"заполнено на {signal.Procent}%";
+            _imageNewSize.fillAmount = signal.Procent / 100f;
+
+            if (_imageNewSize.color == Color.green)
             {
-                _imageNewSize.color = Color.green;
-                _textFilledInProcent.color = Color.white;
-
-                int procent = _serviceLocator.Disk.GetNewSizeProcent(signal.Size);
-                _textFilledInProcent.text = $"заполнено на {procent}%";
-                _imageNewSize.fillAmount = procent / 100f;
-
-
                 if (_imageNewSize.fillAmount > 0)
                 {
                     _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(true));
@@ -59,16 +56,6 @@ namespace Disk
                 {
                     _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(false));
                 }
-            }
-            else
-            {
-                _imageNewSize.fillAmount = 1;
-                _imageNewSize.color = Color.red;
-
-                _textFilledInProcent.text = "заполнено на 100%";
-                _textFilledInProcent.color = Color.red;
-
-                _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(false));
             }
         }
     }

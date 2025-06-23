@@ -28,6 +28,8 @@ namespace Services
             DontDestroyOnLoad(gameObject);
         }
 
-        public void InitDisk() => _disk = new();
+        private void OnDestroy() => _disk.Destroy();
+
+        public void InitDisk() => _disk = new(this);
     }
 }
