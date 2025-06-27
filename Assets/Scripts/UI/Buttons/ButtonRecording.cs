@@ -1,17 +1,20 @@
 using UnityEngine;
 using Services;
 using Services.EvnetBusSignals;
+using Disk;
 
 namespace UI
 {
     public sealed class ButtonRecording : MyButton
     {
         [SerializeField] private ButtonCompress _buttonCompress;
+        private GameDisk _disk;
 
         protected override void Start()
         {
             base.Start();
 
+            _disk = ServiceLocator.Instance.Disk;
             _button.onClick.AddListener(Click);
            _eventBus.Subscribe<DiskFullSignal>(Enabled);
         }
@@ -23,7 +26,8 @@ namespace UI
 
         protected override void Click()
         {
-            
+            _buttonCompress.HideAllFilesForRecording();
+            _disk.ChangeCurrentSize();
         }
 
         private void Enabled(DiskFullSignal signal)

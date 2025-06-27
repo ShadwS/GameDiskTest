@@ -1,6 +1,6 @@
 namespace Services.EvnetBusSignals
 {
-    sealed class ChangeNewSizeFilesViewSignal
+    public sealed class ChangeNewSizeFilesViewSignal
     {
         public int Size => _size;
 

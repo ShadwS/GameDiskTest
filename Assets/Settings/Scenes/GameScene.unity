@@ -1992,12 +1992,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bc16e2bd91f534eb6f883388906c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasDisk: {fileID: 4348137568899458297}
-  _canvasGame: {fileID: 34727213912375966}
+  _canvases:
+  - {fileID: 4348137568899458297}
+  - {fileID: 16908061}
+  - {fileID: 34727213912375966}
   _filesFactory: {fileID: 1343815718}
   _buttons:
   - {fileID: 144026356336256561}
-  - {fileID: 0}
+  - {fileID: 549473661}
   _serviceLocator: {fileID: 1950476395}
 --- !u!4 &903359456
 Transform:
@@ -3287,7 +3289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a7861e00fd52642abd311fe167eb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parentFiles: {fileID: 0}
+  _parentFiles: {fileID: 1760405097}
   _fileSettings: {fileID: 11400000, guid: ef086d46a346cce409c4d458fbe60ee9, type: 2}
 --- !u!1 &1361937408
 GameObject:
@@ -5090,7 +5092,6 @@ GameObject:
   - component: {fileID: 5799852317775801839}
   - component: {fileID: 3971081574186443228}
   - component: {fileID: 9075211361224734902}
-  - component: {fileID: 9075211361224734903}
   m_Layer: 5
   m_Name: Panel disk
   m_TagString: Untagged
@@ -5709,7 +5710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22523b5bc1221a64a82a1b80fe4f8a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _buttonCompress: {fileID: 0}
+  _buttonCompress: {fileID: 549473660}
 --- !u!1 &5493572078286656183
 GameObject:
   m_ObjectHideFlags: 0
@@ -6155,19 +6156,6 @@ MonoBehaviour:
   _textFilledInProcent: {fileID: 4236908688453469278}
   _imageCurrentSize: {fileID: 1933329888800913889}
   _imageNewSize: {fileID: 1682392907492499030}
---- !u!114 &9075211361224734903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1651121568566203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6616c3afa2f0cb14db975e8ff7f29f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 858007639}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

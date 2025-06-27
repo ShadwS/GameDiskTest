@@ -22,7 +22,11 @@ namespace Disk
             _eventBus = _serviceLocator.EventBus;
 
             _eventBus.Subscribe<StartPrintSignal>(StartPrint);
-            _eventBus.Subscribe<ChangeFillAmountDisk>(ChangeFillAmount);
+            _eventBus.Subscribe<ChangeFillAmountDiskNewSize>(ChangeFillAmount);
+            _eventBus.Subscribe<RecordingFiles>(RecordingFiles);
+            _eventBus.Subscribe<ChangeNewSizeFilesSignal>(ChangeSize);
+
+            _textSizeFiles.text = $"גוס פאיכא: 0";
 
             _serviceLocator.InitDisk();
         }
@@ -30,7 +34,9 @@ namespace Disk
         private void OnDestroy()
         {
             _eventBus.Unsubscribe<StartPrintSignal>(StartPrint);
-            _eventBus.Unsubscribe<ChangeFillAmountDisk>(ChangeFillAmount);
+            _eventBus.Unsubscribe<ChangeFillAmountDiskNewSize>(ChangeFillAmount);
+            _eventBus.Unsubscribe<ChangeNewSizeFilesSignal>(ChangeSize);
+            _eventBus.Unsubscribe<RecordingFiles>(RecordingFiles);
         }
 
         private void StartPrint(StartPrintSignal signal)
@@ -41,7 +47,14 @@ namespace Disk
             _imageNewSize.fillAmount = _imageCurrentSize.fillAmount;
         }
 
-        private void ChangeFillAmount(ChangeFillAmountDisk signal)
+        private void ChangeSize(ChangeNewSizeFilesSignal signal)
+        {
+            int size = signal.Size;
+            _textSizeFiles.text = signal.IsSereval ? $"גוס פאיכמג: {size}" : $"גוס פאיכא: {size}";
+            _eventBus.Invoke<ChangeNewSizeFilesViewSignal>(new(size));
+        }
+
+        private void ChangeFillAmount(ChangeFillAmountDiskNewSize signal)
         {
             _imageNewSize.color = signal.ColorFillAmount;
             _textFilledInProcent.color = signal.ColorText;
@@ -59,6 +72,12 @@ namespace Disk
                     _eventBus.Invoke<DiskFullSignal>(new(false));
                 }
             }
+        }
+
+        private void RecordingFiles(RecordingFiles signal)
+        {
+            _imageCurrentSize.fillAmount = signal.FillAmount;
+            _textMaximalSize.text = $"לוסעמ םא הטסךו: {signal.NewSize}";
         }
     }
 }

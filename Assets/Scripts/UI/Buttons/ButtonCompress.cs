@@ -43,14 +43,19 @@ namespace UI
         {
         }
 
-        public List<File> GetAllFiles()
+        public void HideAllFilesForRecording()
         {
-            var files = _filesNotMaximalCompress;
+            foreach (var file in _filesNotMaximalCompress)
+            {
+                file.gameObject.SetActive(false);
+            }
+            _filesNotMaximalCompress.Clear();
+
             foreach (var file in _filesMaximalCompress)
             {
-                files.Add(file);
+                file.gameObject.SetActive(false);
             }
-            return files;
+            _filesMaximalCompress.Clear();
         }
 
         private void FileClick(FileClickSignal file)

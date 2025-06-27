@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Services.EvnetBusSignals
 {
-    sealed class ChangeFillAmountDisk
+    public sealed class ChangeFillAmountDiskNewSize
     {
         public int Procent => _procent;
         public Color ColorFillAmount => _colorFillAmount;
@@ -12,7 +12,7 @@ namespace Services.EvnetBusSignals
         private readonly Color _colorText;
         private readonly int _procent;
 
-        public ChangeFillAmountDisk(Color colorFillAmount, Color colorText, int procent)
+        public ChangeFillAmountDiskNewSize(Color colorFillAmount, Color colorText, int procent)
         {
             _colorFillAmount = colorFillAmount;
             _colorText = colorText;

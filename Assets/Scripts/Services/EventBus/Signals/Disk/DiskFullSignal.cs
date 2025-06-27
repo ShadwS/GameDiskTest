@@ -1,6 +1,6 @@
 namespace Services.EvnetBusSignals
 {
-    sealed class DiskFullSignal
+    public sealed class DiskFullSignal
     {
         public bool Enabled => _enabled;
 

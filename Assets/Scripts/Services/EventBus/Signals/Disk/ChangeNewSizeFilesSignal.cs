@@ -1,6 +1,6 @@
 namespace Services.EvnetBusSignals
 {
-    sealed class ChangeNewSizeFilesSignal
+    public sealed class ChangeNewSizeFilesSignal
     {
         public int Size => _size;
         public bool IsSereval => _several;

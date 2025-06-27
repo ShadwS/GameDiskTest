@@ -2,7 +2,7 @@ using Disk;
 
 namespace Services.EvnetBusSignals
 {
-    sealed class StartPrintSignal
+    public sealed class StartPrintSignal
     {
         public GameDisk Disk => _disk;
 
