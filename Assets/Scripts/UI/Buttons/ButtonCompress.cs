@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Services;
 using Services.EvnetBusSignals;
 using Files;
 
@@ -14,34 +13,44 @@ namespace UI
             set
             {
                 _currentSizeFiles += value;
-                _serviceLocator.EventBus.Invoke<ChangeSizeFilesSignal>(new(_currentSizeFiles, _countFiles > 1));
+                _eventBus.Invoke<ChangeNewSizeFilesSignal>(new(_currentSizeFiles, _countFiles > 1));
             }
         }
 
-        private ServiceLocator _serviceLocator;
         private List<File> _filesMaximalCompress;
         private List<File> _filesNotMaximalCompress;
         private int _currentSizeFiles;
         private int _countFiles;
 
-        private void Start()
+        protected override void Start()
         {
-            _serviceLocator = ServiceLocator.Instance;
+            base.Start();
+
             _filesMaximalCompress = new();
             _filesNotMaximalCompress = new();
             _currentSizeFiles = 0;
             _countFiles = 0;
-            _serviceLocator.EventBus.Subscribe<FileClickSignal>(FileClick);
+            _eventBus.Subscribe<FileClickSignal>(FileClick);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _serviceLocator.EventBus.Unsubscribe<FileClickSignal>(FileClick);
+            _eventBus.Unsubscribe<FileClickSignal>(FileClick);
         }
 
         protected override void Click()
         {
+        }
+
+        public List<File> GetAllFiles()
+        {
+            var files = _filesNotMaximalCompress;
+            foreach (var file in _filesMaximalCompress)
+            {
+                files.Add(file);
+            }
+            return files;
         }
 
         private void FileClick(FileClickSignal file)

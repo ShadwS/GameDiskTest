@@ -6,26 +6,24 @@ namespace Disk
 {
     public sealed class GameDisk
     {
-        private readonly ServiceLocator _serviceLocator;
+        private readonly EventBus _eventBus;
         private readonly int _maximalSize;
         private int _currentSize;
-        private int _currentNewSize;
 
         public GameDisk(ServiceLocator serviceLocator)
         {
-            _serviceLocator = serviceLocator;
+            _eventBus = serviceLocator.EventBus;
             _currentSize = _maximalSize = 1024;
-            _currentNewSize = 0;
 
-            _serviceLocator.EventBus.Invoke<StartPrintSignal>(new(this));
-            _serviceLocator.EventBus.Subscribe<ChangeNewSizeSignal>(ChangeNewSize);
+            _eventBus.Invoke<StartPrintSignal>(new(this));
+            _eventBus.Subscribe<ChangeNewSizeFilesViewSignal>(ChangeNewSize);
         }
 
-        public void Destroy() => _serviceLocator.EventBus.Unsubscribe<ChangeNewSizeSignal>(ChangeNewSize);
+        public void Destroy() => _eventBus.Unsubscribe<ChangeNewSizeFilesViewSignal>(ChangeNewSize);
 
         public int[] StartValue() => new int[] { _currentSize, 0 };
 
-        private void ChangeNewSize(ChangeNewSizeSignal signal)
+        private void ChangeNewSize(ChangeNewSizeFilesViewSignal signal)
         {
             Color colorFillAmount;
             Color colorText;
@@ -42,10 +40,10 @@ namespace Disk
                 colorText = Color.red;
                 procent = 100;
 
-                _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(false));
+                _eventBus.Invoke<DiskFullSignal>(new(false));
             }
 
-            _serviceLocator.EventBus.Invoke<ChangeFillAmountDisk>(new(colorFillAmount, colorText, procent));
+            _eventBus.Invoke<ChangeFillAmountDisk>(new(colorFillAmount, colorText, procent));
         }
     }
 }

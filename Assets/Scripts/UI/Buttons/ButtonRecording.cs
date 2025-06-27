@@ -8,23 +8,22 @@ namespace UI
     {
         [SerializeField] private ButtonCompress _buttonCompress;
 
-        private ServiceLocator _serviceLocator;
-
-        private void Start()
+        protected override void Start()
         {
-            _button.onClick.AddListener(Click);
+            base.Start();
 
-            _serviceLocator = ServiceLocator.Instance;
-            _serviceLocator.EventBus.Subscribe<DiskFullSignal>(Enabled);
+            _button.onClick.AddListener(Click);
+           _eventBus.Subscribe<DiskFullSignal>(Enabled);
         }
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            _serviceLocator.EventBus.Unsubscribe<DiskFullSignal>(Enabled);
+            _eventBus.Unsubscribe<DiskFullSignal>(Enabled);
         }
 
         protected override void Click()
         {
+            
         }
 
         private void Enabled(DiskFullSignal signal)

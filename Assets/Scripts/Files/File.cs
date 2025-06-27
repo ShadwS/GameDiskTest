@@ -24,7 +24,6 @@ namespace Files
         private int _startSize;
         private bool _isMaximalCompress;
 
-        private ServiceLocator _serviceLocator;
         private Image _image;
         private Color _disableColor;
         private Color _enableColor;
@@ -35,8 +34,6 @@ namespace Files
             base.Awake();
             _image = gameObject.GetComponent<Image>();
         }
-
-        private void Start() => _serviceLocator = ServiceLocator.Instance;
 
         public void Init(FileCreator file)
         {
@@ -72,7 +69,7 @@ namespace Files
 
             _image.color = _enabled ? _enableColor : _disableColor;
 
-            _serviceLocator.EventBus.Invoke<FileClickSignal>(new(this));
+            _eventBus.Invoke<FileClickSignal>(new(this));
         }
     }
 }

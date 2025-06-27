@@ -14,21 +14,23 @@ namespace Disk
         [SerializeField] private Image _imageNewSize;
 
         private ServiceLocator _serviceLocator;
+        private EventBus _eventBus;
 
         private void Start()
         {
             _serviceLocator = ServiceLocator.Instance;
+            _eventBus = _serviceLocator.EventBus;
 
-            _serviceLocator.EventBus.Subscribe<StartPrintSignal>(StartPrint);
-            _serviceLocator.EventBus.Subscribe<ChangeFillAmountDisk>(ChangeFillAmount);
+            _eventBus.Subscribe<StartPrintSignal>(StartPrint);
+            _eventBus.Subscribe<ChangeFillAmountDisk>(ChangeFillAmount);
 
             _serviceLocator.InitDisk();
         }
 
         private void OnDestroy()
         {
-            _serviceLocator.EventBus.Unsubscribe<StartPrintSignal>(StartPrint);
-            _serviceLocator.EventBus.Unsubscribe<ChangeFillAmountDisk>(ChangeFillAmount);
+            _eventBus.Unsubscribe<StartPrintSignal>(StartPrint);
+            _eventBus.Unsubscribe<ChangeFillAmountDisk>(ChangeFillAmount);
         }
 
         private void StartPrint(StartPrintSignal signal)
@@ -50,11 +52,11 @@ namespace Disk
             {
                 if (_imageNewSize.fillAmount > 0)
                 {
-                    _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(true));
+                    _eventBus.Invoke<DiskFullSignal>(new(true));
                 }
                 else
                 {
-                    _serviceLocator.EventBus.Invoke<DiskFullSignal>(new(false));
+                    _eventBus.Invoke<DiskFullSignal>(new(false));
                 }
             }
         }

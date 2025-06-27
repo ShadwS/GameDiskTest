@@ -1,6 +1,6 @@
 namespace Services.EvnetBusSignals
 {
-    sealed class ChangeSizeFilesSignal
+    sealed class ChangeNewSizeFilesSignal
     {
         public int Size => _size;
         public bool IsSereval => _several;
@@ -8,7 +8,7 @@ namespace Services.EvnetBusSignals
         private readonly int _size;
         private readonly bool _several;
 
-        public ChangeSizeFilesSignal(int size, bool several)
+        public ChangeNewSizeFilesSignal(int size, bool several)
         {
             _size = size;
             _several = several;

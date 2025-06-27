@@ -7,16 +7,18 @@ namespace Boot
 {
     public sealed class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private GameObject _canvasDisk;
-        [SerializeField] private GameObject _canvasGame;
+        [SerializeField] private GameObject[] _canvases;
         [SerializeField] private FilesFactory _filesFactory;
         [SerializeField] private Button[] _buttons;
         [SerializeField] private ServiceLocator _serviceLocator;
 
         private void Awake()
         {
-            _canvasDisk.SetActive(false);
-            _canvasGame.SetActive(false);
+            foreach (var canvas in _canvases)
+            {
+                canvas.SetActive(false);
+            }
+
             _filesFactory.gameObject.SetActive(false);
             _serviceLocator.gameObject.SetActive(false);
 
@@ -28,7 +30,8 @@ namespace Boot
 
         private void Start()
         {
-            _canvasDisk.SetActive(true);
+            _canvases[0].SetActive(true);
+            _canvases[1].SetActive(true);
             _filesFactory.gameObject.SetActive(true);
             _serviceLocator.gameObject.SetActive(true);
         }
