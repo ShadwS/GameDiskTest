@@ -25,6 +25,7 @@ namespace Disk
             _eventBus.Subscribe<ChangeFillAmountDiskNewSize>(ChangeFillAmount);
             _eventBus.Subscribe<RecordingFiles>(RecordingFiles);
             _eventBus.Subscribe<ChangeNewSizeFilesSignal>(ChangeSize);
+            _eventBus.Subscribe<ChangeSizeRecordingFilesSignal>(ChangeSize);
 
             _textSizeFiles.text = $"גוס פאיכא: 0";
 
@@ -36,6 +37,7 @@ namespace Disk
             _eventBus.Unsubscribe<StartPrintSignal>(StartPrint);
             _eventBus.Unsubscribe<ChangeFillAmountDiskNewSize>(ChangeFillAmount);
             _eventBus.Unsubscribe<ChangeNewSizeFilesSignal>(ChangeSize);
+            _eventBus.Unsubscribe<ChangeSizeRecordingFilesSignal>(ChangeSize);
             _eventBus.Unsubscribe<RecordingFiles>(RecordingFiles);
         }
 
@@ -54,6 +56,12 @@ namespace Disk
             _eventBus.Invoke<ChangeNewSizeFilesViewSignal>(new(size));
         }
 
+        private void ChangeSize(ChangeSizeRecordingFilesSignal signal)
+        {
+            _textSizeFiles.text = $"גוס פאיכא: {0}";
+            _imageNewSize.fillAmount = _imageCurrentSize.fillAmount;
+        }
+
         private void ChangeFillAmount(ChangeFillAmountDiskNewSize signal)
         {
             _imageNewSize.color = signal.ColorFillAmount;
@@ -63,14 +71,7 @@ namespace Disk
 
             if (_imageNewSize.color == Color.green)
             {
-                if (_imageNewSize.fillAmount > 0)
-                {
-                    _eventBus.Invoke<DiskFullSignal>(new(true));
-                }
-                else
-                {
-                    _eventBus.Invoke<DiskFullSignal>(new(false));
-                }
+                _eventBus.Invoke<DiskFullSignal>(new(_imageNewSize.fillAmount > 0));
             }
         }
 

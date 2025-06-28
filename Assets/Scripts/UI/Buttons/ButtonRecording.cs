@@ -28,6 +28,7 @@ namespace UI
         {
             _buttonCompress.HideAllFilesForRecording();
             _disk.ChangeCurrentSize();
+            _eventBus.Invoke<ChangeSizeRecordingFilesSignal>(new());
         }
 
         private void Enabled(DiskFullSignal signal)

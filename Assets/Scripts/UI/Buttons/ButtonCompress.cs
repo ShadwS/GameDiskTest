@@ -13,7 +13,14 @@ namespace UI
             set
             {
                 _currentSizeFiles += value;
-                _eventBus.Invoke<ChangeNewSizeFilesSignal>(new(_currentSizeFiles, _countFiles > 1));
+                if (_countFiles == 0)
+                {
+                    _eventBus.Invoke<ChangeSizeRecordingFilesSignal>(new());
+                }
+                else
+                {
+                    _eventBus.Invoke<ChangeNewSizeFilesSignal>(new(_currentSizeFiles, _countFiles > 1));
+                }
             }
         }
 
@@ -56,6 +63,8 @@ namespace UI
                 file.gameObject.SetActive(false);
             }
             _filesMaximalCompress.Clear();
+
+            _currentSizeFiles = _countFiles = 0;
         }
 
         private void FileClick(FileClickSignal file)
